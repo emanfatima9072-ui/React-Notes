@@ -1,4 +1,3 @@
-# React-Notes
 # React-Basics
 
 React basics (first 15 videos) Roadmap React fundamentals: JSX, functional components, props, useState, useEffect, conditional rendering, and list rendering.
