@@ -219,13 +219,11 @@ In errors ko samajhna React seekhne ka important hissa hai.
 * CRA aur Vite ka concept same hai, sirf setup different hai.
 * Component ek JavaScript function hota hai jo JSX return karta hai.
 * Components ke naam Capital Letter se likhna aur unhein properly export/import karna best practice hai.
-* React seekhte waqt sirf code nahi, errors ko samajhna bhi utna hi important hai.
------------------------------------------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------------------------------------------------
 
-# 📘 Lecture 4 – React Behind the Scenes (Custom React, JSX, createElement & Expression)
+# 📘 React Behind the Scenes (Lecture 4)
 
-# 1. Component Sirf Function Hota Hai
-
+## Component Sirf Function Hota Hai
 React Component asal mein JavaScript Function hota hai.
 
 ```jsx
@@ -240,13 +238,16 @@ function MyApp() {
 Isliye React component ko theoretically function ki tarah bhi call kar sakte hain.
 ```jsx
 <MyApp />
+
 // Same as
+
 MyApp()
 ```
-Note: Function ki tarah call ho jata hai, lekin React projects mein hamesha `<MyApp />` hi use karna chahiye. Yeh React ka standard convention hai aur optimization bhi isi ke liye hoti hai.
+Note:Function ki tarah call ho jata hai, lekin React projects mein hamesha `<MyApp />` hi use karna chahiye. Yeh React ka standard convention hai aur optimization bhi isi ke liye hoti hai.
 
-# 2. JSX Kahan Se Aata Hai?
+## JSX Kahan Se Aata Hai?
 Jo syntax hum likhte hain
+
 ```jsx
 <div>
     <h1>Hello</h1>
@@ -255,7 +256,7 @@ Jo syntax hum likhte hain
 Ye browser ya JavaScript ko directly samajh nahi aata.
 Behind the scenes Babel / Bundler (Vite) is JSX ko normal JavaScript mein convert karta hai.
 Flow:
-```
+```text
 JSX
       ↓
 Babel / Bundler
@@ -267,16 +268,16 @@ React Render
 DOM
 ```
 
-# 3. JSX Easy Hai
+## JSX Easy Hai
 React ko HTML nahi samajh aati.
 React ko object structure chahiye.
 Hum JSX isliye likhte hain kyun ke ye readable aur easy hoti hai.
 Bundler automatically isko JavaScript object mein convert kar deta hai.
 
-# 4.  Custom React
-
+## Custom React
 Pichli lecture mein humne khud React jaisa object banaya tha.
 Example:
+
 ```js
 const reactElement = {
     type: "a",
@@ -286,10 +287,11 @@ const reactElement = {
     children: "Visit Google"
 }
 ```
-Aur customRender() is object ko DOM mein convert karta tha
+
+Aur `customRender()` is object ko DOM mein convert karta tha.
 Isse samajh aya ke React bhi internally object ke through kaam karta hai.
 
-# 5. Kya Hum Apna Object React.render() Mein De Sakte Hain?
+## Kya Hum Apna Object React.render() Mein De Sakte Hain?
 Agar hum apna custom object directly render kar dein
 ```jsx
 root.render(reactElement)
@@ -300,7 +302,7 @@ Humne object apni marzi se banaya hai.
 React ek specific object structure expect karta hai.
 Uske property names aur internal fields different hote hain.
 
-# 6. React.createElement()
+## React.createElement()
 React khud object banane ke liye ek method deta hai.
 ```jsx
 React.createElement()
@@ -314,7 +316,8 @@ React.createElement(
     children
 )
 ```
-## First Parameter → Tag
+### First Parameter → Tag
+
 ```jsx
 "a"
 "h1"
@@ -326,7 +329,7 @@ Example
 React.createElement("h1")
 ```
 
-## Second Parameter → Props Object
+### Second Parameter → Props Object
 Yahan saare HTML attributes aate hain.
 ```jsx
 {
@@ -344,9 +347,8 @@ ya
 {}
 ```
 de sakte hain.
----
 
-## Third Parameter → Children
+### Third Parameter → Children
 Tag ke andar jo content dikhana hai.
 ```jsx
 "Visit Google"
@@ -368,7 +370,7 @@ root.render(reactElement)
 ```
 Ab React is object ko samajh leta hai.
 
-# 7. JSX Behind The Scenes
+## JSX Behind The Scenes
 Ye
 ```jsx
 <a href="https://google.com">
@@ -387,13 +389,13 @@ React.createElement(
 ```
 Aur uske baad object banta hai.
 
-# 8. React.createElement Object Banata Hai
+## React.createElement Object Banata Hai
 Ye HTML create nahi karta.
 Ye ek JavaScript Object return karta hai.
 Phir React us object ko Virtual DOM mein convert karta hai.
 Uske baad Real DOM update hota hai.
 Flow
-```
+```text
 JSX
 ↓
 React.createElement()
@@ -405,7 +407,7 @@ Virtual DOM
 Real DOM
 ```
 
-# 9. Variable Injection in JSX
+## Variable Injection in JSX
 JavaScript variable ko JSX mein show karne ke liye
 ```jsx
 {}
@@ -419,35 +421,34 @@ const username = "Custom project";
 <h1>{username}</h1>
 ```
 Output
-```
+
+```text
 Custom project
 ```
 
-# 10. Curly Braces `{}`
+## Curly Braces `{}`
 Curly braces ke andar JavaScript Expression likhte hain.
 ```jsx
 {username}
 ```
 React variable ki value render karta hai.
 
-# 11. Evaluated Expression
+## Evaluated Expression
 React curly braces ke andar sirf Evaluated Expression accept karta hai.
 Matlab final value.
 Example
 ```jsx
 {username}
 ```
-
 ```jsx
 {10 + 20}
 ```
-
 ```jsx
 {isLoggedIn ? "Login" : "Logout"}
 ```
 Ye sab valid hain.
 
-# 12. Kya Curly Braces Mein if Likha Ja Sakta Hai?
+## Kya Curly Braces Mein if Likha Ja Sakta Hai?
 Nahi.
 ```jsx
 {
@@ -457,76 +458,70 @@ Nahi.
 }
 ```
 Reason
+
 `if` statement value return nahi karta.
 React ko final value chahiye.
 
-
-# 13. Expression Allowed Hain
+## Expression Allowed Hain
 Allowed
 ```jsx
 {username}
 ```
-
 ```jsx
 {10 + 20}
 ```
-
 ```jsx
 {user.name}
 ```
-
 ```jsx
 {isLogin ? "Yes" : "No"}
 ```
 
-# 14. Statements Allowed Nahi
-
+## Statements Allowed Nahi
 No
 ```jsx
 if
 ```
-
 ```jsx
 for
 ```
-
 ```jsx
 while
 ```
-
 ```jsx
 switch
 ```
-
 Ye statements hain.
 Inki final value directly return nahi hoti.
 
-# 15. Variables Pehle Calculate Karo
-Agar koi logic hai
+## Variables Pehle Calculate Karo
+Agar koi logic hai,
 Pehle function ke andar calculate karo.
 Phir JSX mein sirf variable use karo.
 ```jsx
 const username = "Chai Aur Code";
+
 return (
     <h1>{username}</h1>
 )
 ```
 
-# 16. React Bahut Optimization Karta Hai
+## React Bahut Optimization Karta Hai
 Hum sirf JSX likhte hain.
-React internally
-* React Element banata hai
-* Virtual DOM banata hai
-* Tree create karta hai
-* Diffing Algorithm chalata hai
-* Sirf changed nodes update karta hai
+React internally:
+* React Element banata hai.
+* Virtual DOM banata hai.
+* Tree create karta hai.
+* Diffing Algorithm chalata hai.
+* Sirf changed nodes update karta hai.
 Isi wajah se React fast hai.
 
-# 17. React Open Source Hai
-Agar dekhna ho React internally kaise kaam karta hai
+## React Open Source Hai
+
+Agar dekhna ho React internally kaise kaam karta hai,
 GitHub source code dekh sakte hain.
 
-# Lecture Summary
+## Summary Of Lecture
 
 * React Component sirf JavaScript Function hota hai.
 * JSX ko Babel/Vite JavaScript mein convert karta hai.
@@ -537,7 +532,8 @@ GitHub source code dekh sakte hain.
 * Curly braces `{}` JavaScript expressions inject karne ke liye hoti hain.
 * Sirf evaluated expressions allowed hain, statements nahi.
 * React Virtual DOM aur optimization ki wajah se fast rendering karta hai.
-  ----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
