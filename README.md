@@ -1,5 +1,6 @@
 # React-Basics
 This repository contains my notes from the first 15 React lectures.
+
 Topics covered:
 - JSX
 - Functional Components
@@ -8,6 +9,7 @@ Topics covered:
 - useEffect
 - Conditional Rendering
 - List Rendering
+  
 Each lecture contains:
 - Concepts
 - Examples
