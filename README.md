@@ -1,7 +1,18 @@
 # React-Basics
-
-React basics (first 15 videos) Roadmap React fundamentals: JSX, functional components, props, useState, useEffect, conditional rendering, and list rendering.
-I will provide notes of every lecture here.
+This repository contains my notes from the first 15 React lectures.
+Topics covered:
+- JSX
+- Functional Components
+- Props
+- useState
+- useEffect
+- Conditional Rendering
+- List Rendering
+Each lecture contains:
+- Concepts
+- Examples
+- Important Points
+- Summary
 # 📘 React JS Roadmap (Lecture 1)
 
 ## Why React?
@@ -72,7 +83,7 @@ Ye React ka part nahi hain, lekin real-world React development ke liye important
 * JavaScript strong hone ke baad React seekhna chahiye.
 * React ki foundation State, JSX, Components, Props aur Hooks hain.
 * Project-based learning React seekhne ka effective approach hai.
-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+*************************************************************************************************************************************************************
 
  # 📘Create React Projects (Lecture 2)
  
@@ -138,7 +149,7 @@ Isme dependencies, scripts aur project ki basic information hoti hai.
 * `src` folder mein main React code likha jata hai.
 * `package.json` project ki dependencies aur scripts manage karta hai.
 * Official documentation React learning ka important part hai.
-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+***************************************************************************************************************************************************************
 
 # 📘 Understand React Flow & Structure (Lecture 3)
 
@@ -218,7 +229,7 @@ In errors ko samajhna React seekhne ka important hissa hai.
 * CRA aur Vite ka concept same hai, sirf setup different hai.
 * Component ek JavaScript function hota hai jo JSX return karta hai.
 * Components ke naam Capital Letter se likhna aur unhein properly export/import karna best practice hai.
----------------------------------------------------------------------------------------------------------------------------------------------------------
+***************************************************************************************************************************************************************
 
 # 📘 React Behind the Scenes (Lecture 4)
 
@@ -531,8 +542,7 @@ GitHub source code dekh sakte hain.
 * Curly braces `{}` JavaScript expressions inject karne ke liye hoti hain.
 * Sirf evaluated expressions allowed hain, statements nahi.
 * React Virtual DOM aur optimization ki wajah se fast rendering karta hai.
-
------------------------------------------------------------------------------------------------------------------------------------------------------
+***********************************************************************************************************************************************************
 
 # 📘 Why We Need Hooks (Lecture 5)
 
@@ -698,11 +708,11 @@ const [counter, setCounter] = useState(0);
 - State ko `setCounter()` jaise setter function se update karte hain.
 - State change hote hi React automatically UI re-render kar deta hai.
 - Counter Project se Hooks aur UI update ka concept samajh aata hai.
--------------------------------------------------------------------------------------------------------------------------------------------------
+*************************************************************************************************************************************************************
 
 # 📘 Virtual DOM, Fiber & Reconciliation (Lecture 6)
 
-## Goal :
+## Lecture Goal :
 Ye lecture mostly theory based ta.
 Iska main purpose React ke behind-the-scenes concepts samajhna hai.
 Ye concepts interviews aur React ki internal working samajhne ke liye important hain.
@@ -845,5 +855,6 @@ Interview mein commonly ye questions pooche ja sakte hain:
 - Different updates ki different priorities hoti hain.
 - List rendering mein unique `key` performance improve karti hai.
 - React unnecessary DOM updates avoid karke fast rendering provide karta hai.
+  **********************************************************************************************************************************************************
 
 
