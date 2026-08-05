@@ -698,6 +698,152 @@ const [counter, setCounter] = useState(0);
 - State ko `setCounter()` jaise setter function se update karte hain.
 - State change hote hi React automatically UI re-render kar deta hai.
 - Counter Project se Hooks aur UI update ka concept samajh aata hai.
+-------------------------------------------------------------------------------------------------------------------------------------------------
 
+# 📘 Virtual DOM, Fiber & Reconciliation (Lecture 6)
+
+## Goal :
+Ye lecture mostly theory based ta.
+Iska main purpose React ke behind-the-scenes concepts samajhna hai.
+Ye concepts interviews aur React ki internal working samajhne ke liye important hain.
+
+## createRoot() Ka Role
+React application start hote hi
+```jsx
+createRoot()
+```
+browser ke root element ka reference leta hai aur React ka rendering process start karta hai.
+Behind the scenes React apna internal tree maintain karta hai jiske through UI updates ko manage karta hai.
+
+## Virtual DOM
+Virtual DOM React ka ek lightweight JavaScript representation hota hai jo Real DOM ki copy ki tarah kaam karta hai.
+React directly Real DOM ko update nahi karta.
+Flow:
+```text
+State Change
+      ↓
+Virtual DOM Update
+      ↓
+Old Virtual DOM vs New Virtual DOM Compare
+      ↓
+Only Changed Parts Update
+      ↓
+Real DOM Update
+```
+Is wajah se unnecessary DOM updates nahi hoti aur performance improve hoti hai.
+
+## Real DOM vs Virtual DOM
+
+### Real DOM
+- Browser ka actual DOM hota hai.
+- Update expensive hoti hai.
+- Har change browser ko render karna padta hai.
+
+### Virtual DOM
+- JavaScript object ki form mein hota hai.
+- React pehle isi ko update karta hai.
+- Sirf changed elements Real DOM mein update hote hain.
+
+## Reconciliation
+Reconciliation React ki algorithm hai jo Old Virtual DOM aur New Virtual DOM ko compare karti hai.
+Ye decide karti hai:
+- Kis element mein change hua hai.
+- Kis element ko update karna hai.
+- Kis element ko remove ya replace karna hai.
+React sirf required updates Real DOM mein apply karta hai.
+
+## Diffing Algorithm
+Reconciliation ke andar React Diffing Algorithm use karta hai.
+Ye do trees compare karti hai.
+```text
+Old Tree
+     ↓ Compare
+New Tree
+     ↓
+Find Differences
+     ↓
+Update Only Changed Nodes
+```
+Is process ki wajah se React fast rendering provide karta hai.
+
+## Fiber
+Fiber React ka modern reconciliation engine (algorithm) hai.
+Pehle React synchronous rendering use karta tha.
+Fiber ke baad React rendering ko better tarike se manage karta hai.
+Fiber ke main goals:
+- Rendering ko pause kar sakta hai.
+- Resume kar sakta hai.
+- Cancel kar sakta hai.
+- Different updates ko priority de sakta hai.
+Isse UI zyada responsive rehti hai.
+
+## Incremental Rendering
+Fiber rendering ko chhote chhote tasks mein divide karta hai.
+Instead of ek hi baar sab kuch render karne ke, React updates ko multiple frames mein perform kar sakta hai.
+Isse application smooth feel hoti hai.
+
+## Update Priority
+Har update equally important nahi hoti.
+Fiber different updates ko priority assign kar sakta hai.
+Example:
+- User click → High Priority
+- Background data update → Low Priority
+High priority updates pehle complete hoti hain.
+
+## Abort & Resume Updates
+Agar rendering ke darmiyan koi naya aur important update aa jaye,
+Fiber:
+- Current work pause kar sakta hai.
+- Zarurat ho to purana work discard kar sakta hai.
+- Latest update process kar sakta hai.
+Isse unnecessary rendering avoid hoti hai.
+
+## Keys & List Rendering
+React list render karte waqt
+```jsx
+key
+```
+property use karta hai.
+Keys ki wajah se React identify karta hai ke list ka kaunsa item change hua hai.
+Key hamesha honi chahiye:
+- Unique
+- Stable
+- Predictable
+Example:
+```jsx
+users.map((user) => (
+    <li key={user.id}>{user.name}</li>
+))
+```
+
+## Rendering Optimization
+React har state change par pura page dobara render nahi karta.
+Ye:
+- Virtual DOM compare karta hai.
+- Differences find karta hai.
+- Sirf changed nodes update karta hai.
+Isi wajah se React efficient aur fast hai.
+
+## Interview Points
+Interview mein commonly ye questions pooche ja sakte hain:
+- Virtual DOM kya hota hai?
+- Reconciliation kya hai?
+- Diffing Algorithm kya karti hai?
+- Fiber kya hai?
+- Fiber ke advantages kya hain?
+- React mein key kyu use hoti hai?
+
+## Summary Of Lecture
+
+- `createRoot()` React rendering process start karta hai.
+- Virtual DOM Real DOM ka lightweight JavaScript representation hai.
+- React pehle Virtual DOM update karta hai.
+- Reconciliation Old aur New Virtual DOM compare karti hai.
+- Diffing Algorithm sirf changed nodes identify karti hai.
+- Fiber React ka modern reconciliation engine hai.
+- Fiber rendering ko pause, resume aur prioritize kar sakta hai.
+- Different updates ki different priorities hoti hain.
+- List rendering mein unique `key` performance improve karti hai.
+- React unnecessary DOM updates avoid karke fast rendering provide karta hai.
 
 
