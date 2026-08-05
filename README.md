@@ -534,5 +534,170 @@ GitHub source code dekh sakte hain.
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------
 
+# 📘 Why We Need Hooks (Lecture 5)
+
+## Why We Need Hooks?
+React mein normal JavaScript variable update ho jata hai.
+```jsx
+let counter = 15;
+counter = counter + 1;
+console.log(counter);
+```
+Console mein value update ho jati hai.
+Lekin React ki UI automatically update nahi hoti.
+
+## Actual Problem
+Variable ki value change ho rahi hoti hai.
+Lekin screen par purani value hi show hoti rehti hai.
+Reason:
+React ko pata hi nahi chalta ke variable update hua hai.
+Is problem ko solve karne ke liye React Hooks provide karta hai.
+
+## Counter Project
+Is lecture mein humne ek simple Counter Project banaya.
+Project mein:
+- Counter Value
+- Add Value Button
+- Remove Value Button
+Project ka main purpose counter banana nahi tha.
+Iska goal ye samajhna tha ke React UI update ko kaise control karta hai.
+
+## React UI Update
+Normal JavaScript sirf variable update karti hai.
+React sirf variable update nahi karta.
+React UI ko bhi update karta hai.
+Flow
+```text
+State Change
+      ↓
+React Detects Change
+      ↓
+Re-render
+      ↓
+Updated UI
+```
+## Introduction to Hooks
+
+React kuch special functions provide karta hai.
+In functions ko Hooks kehte hain.
+Hooks React ko batate hain ke state change hui hai.
+Phir React automatically UI ko update kar deta hai.
+Kuch common hooks:
+- useState
+- useEffect
+- useReducer
+- useCallback
+Har Hook ka apna specific kaam hota hai.
+---
+
+## useState Hook
+State create karne ke liye React
+```jsx
+useState()
+```
+Hook provide karta hai.
+Import
+```jsx
+import { useState } from "react";
+```
+
+## Default State
+`useState()` ke andar jo value dete hain.
+Wohi initial state hoti hai.
+```jsx
+useState(15)
+```
+Default value kuch bhi ho sakti hai.
+- Number
+- String
+- Boolean
+- Array
+- Object
+---
+
+## useState Returns Two Values
+`useState()` hamesha do values return karta hai.
+```jsx
+const [counter, setCounter] = useState(15);
+```
+
+### First Value
+Current State
+```jsx
+counter
+```
+
+### Second Value
+State Update Function
+```jsx
+setCounter
+```
+
+## State Update
+State ko direct update nahi karte.
+Wrong
+```jsx
+counter = counter + 1;
+```
+Correct
+```jsx
+setCounter(counter + 1);
+```
+React ko signal mil jata hai ke state change hui hai.
+Phir React automatically UI update kar deta hai.
+
+## Increment
+Counter increase karne ke liye
+```jsx
+setCounter(counter + 1);
+```
+
+## Decrement
+Counter decrease karne ke liye
+```jsx
+setCounter(counter - 1);
+```
+
+## Event Handling
+Button click par function ka reference pass karte hain.
+```jsx
+<button onClick={addValue}>
+```
+Direct function call nahi karte.
+```jsx
+<button onClick={addValue()}>
+```
+Ye galat hai.
+Function sirf button click hone par execute hona chahiye.
+
+## Naming Convention
+Variable ka naam kuch bhi ho sakta hai.
+```jsx
+const [value, setValue] = useState(0);
+```
+Lekin React mein convention hota hai.
+```text
+stateName
+setStateName
+```
+Example
+```jsx
+const [counter, setCounter] = useState(0);
+```
+
+## Summary Of Lecture
+
+- Normal variable update hota hai, lekin React UI update nahi hoti.
+- React UI updates ko Hooks ke through control karta hai.
+- Hooks React ke special functions hote hain.
+- `useState()` state create karne ke liye use hota hai.
+- `useState()` do values return karta hai.
+  - Current State
+  - State Update Function
+- State ko direct update nahi karte.
+- State ko `setCounter()` jaise setter function se update karte hain.
+- State change hote hi React automatically UI re-render kar deta hai.
+- Counter Project se Hooks aur UI update ka concept samajh aata hai.
+
 
 
