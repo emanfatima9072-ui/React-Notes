@@ -1531,8 +1531,107 @@ Interview mein commonly ye questions pooche ja sakte hain:
 * Multiple Functional Updates correctly execute hoti hain.
 * Jab new state previous state par depend kare to Functional Update use karni chahiye.
 * Ye React ka important interview concept hai.
+********************************************************************************************************************************************************
+
+# Lecture 9 - Background Changer Project
+
+## Goal
+Is lecture ka goal React ke basic concepts ko ek chhote project me apply karna tha. Humne **Background Color Changer** banaya jisme button click karne par screen ka background color change hota hai.
 
 
+## 📚 Concepts Revised
 
+### 1. `useState` Practical Usage
+- Background color ko state me store kiya.
+- UI state ke according automatically update hoti hai.
+```jsx
+const [color, setColor] = useState("olive");
+```
+
+### 2. State ko UI me Use Karna
+Inline style ke through state ko background color ke liye use kiya.
+
+```jsx
+<div
+  style={{ backgroundColor: color }}
+>
+```
+**Yaad rakho:**
+- React me inline CSS object ki form me hoti hai.
+- CSS properties camelCase me likhte hain.
+Example:
+```jsx
+backgroundColor
+fontSize
+marginTop
+```
+
+### 3. Event Handling (`onClick`)
+Har button ke click par state update ki.
+
+```jsx
+<button onClick={() => setColor("red")}>
+  Red
+</button>
+```
+
+## Callback Function Kyu?
+
+Wrong
+```jsx
+onClick={setColor("red")}
+```
+Isme function render hote hi execute ho jata hai.
+Correct
+```jsx
+onClick={() => setColor("red")}
+```
+Yahan `onClick` ko ek **function** milta hai jo click hone par execute hota hai.
+**Reason:**
+- `onClick` function expect karta hai.
+- Agar parameter pass karna ho to callback function use karte hain.
+
+## Tailwind CSS Practice
+
+Project me Tailwind classes use ki gayi.
+Common classes:
+```text
+w-full
+h-screen
+flex
+justify-center
+fixed
+bottom-12
+rounded-3xl
+shadow-lg
+gap-3
+px-3
+py-2
+```
+
+## Project Cleanup
+New project banane ke baad:
+- Unnecessary files remove ki.
+- Default CSS clean ki.
+- Default JSX remove ki.
+- Sirf required code rakha.
+
+## Learning
+
+- State sirf data store nahi karti, UI ko bhi control karti hai.
+- React me UI state ke according re-render hoti hai.
+- Event handling ka basic concept clear hua.
+- Callback function ka purpose samajh aaya.
+- Tailwind CSS ki practical practice hui.
+- Chhota project bhi concepts ko strong banata hai.
+
+## Summary
+Is lecture me humne React ka pehla practical UI project banaya jisme:
+- `useState` use ki.
+- Background color dynamically change kiya.
+- `onClick` event handle kiya.
+- Callback function ka use samjha.
+- Inline styles aur Tailwind CSS practice ki.
+- React state aur UI update ka real example dekha.
 
  ******************************************
