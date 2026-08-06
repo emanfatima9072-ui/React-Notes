@@ -859,58 +859,71 @@ Interview mein commonly ye questions pooche ja sakte hain:
 - React unnecessary DOM updates avoid karke fast rendering provide karta hai.
   **********************************************************************************************************************************************************
 
-  # Lecture 7 – React Props & Tailwind CSS
+  # 📘 React Props & Tailwind CSS (Lecture 7)
 
-##  What I Learned
+## What I Learned
+
 In this lecture, I learned:
-- How to configure Tailwind CSS in a React (Vite) project.
-- What React Props are.
-- How Props make components reusable.
-- How to pass data from a parent component to a child component.
-- How to receive and use Props inside a component.
-- How to pass different data types through Props.
-- How to set default values for Props.
-- How to create reusable Card components.
+* How to configure Tailwind CSS in a React (Vite) project.
+* What React Props are.
+* How Props make components reusable.
+* How to pass data from a Parent Component to a Child Component.
+* How to receive and use Props inside a Component.
+* How to pass different data types through Props.
+* How to set default values for Props.
+* How to create reusable Card Components.
 
-# Tailwind CSS Setup
+## Tailwind CSS Setup
+
 ### Step 1: Create a React Project
+
 ```bash
 npm create vite@latest
 ```
+
 Select:
-- React
-- JavaScript
+* React
+* JavaScript
 
 ### Step 2: Move into Project
+
 ```bash
 cd project-name
 ```
 
 ### Step 3: Install Dependencies
+
 ```bash
 npm install
 ```
 
 ### Step 4: Run Project
+
 ```bash
 npm run dev
 ```
 
 ### Step 5: Install Tailwind CSS
+
 ```bash
 npm install -D tailwindcss postcss autoprefixer
 ```
 
 ### Step 6: Generate Configuration Files
+
 ```bash
 npx tailwindcss init -p
 ```
+
 This creates:
-- tailwind.config.js
-- postcss.config.js
+
+* tailwind.config.js
+* postcss.config.js
 
 ### Step 7: Configure Tailwind
+
 Inside **tailwind.config.js**
+
 ```js
 content: [
   "./index.html",
@@ -919,7 +932,9 @@ content: [
 ```
 
 ### Step 8: Add Tailwind Directives
+
 Inside **index.css**
+
 ```css
 @tailwind base;
 @tailwind components;
@@ -927,175 +942,221 @@ Inside **index.css**
 ```
 
 ### Step 9: Test Tailwind
+
 ```jsx
 <h1 className="bg-green-400 p-4 rounded-xl">
     Tailwind Test
 </h1>
 ```
+
 If the background becomes green, Tailwind is working correctly.
 
-# Useful Tailwind Classes
+## Useful Tailwind Classes
+
 ### Background Color
+
 ```jsx
 bg-green-400
 ```
 
 ### Padding
+
 ```jsx
 p-4
 ```
 
 ### Rounded Corners
+
 ```jsx
 rounded-xl
 ```
 
 ### Text Color
+
 ```jsx
 text-white
 ```
 
 ### Margin Bottom
+
 ```jsx
 mb-4
 ```
 
-# React Props
+## React Props
 
-## What are Props?
+### What are Props?
+
 Props stand for **Properties**.
-Props are used to send data from a Parent Component to a Child Component.
-They make components reusable.
 
-# Without Props
+Props are used to send data from a Parent Component to a Child Component.
+
+They make Components reusable.
+
+## Without Props
 
 ```jsx
 <Card />
 <Card />
 ```
+
 Both cards show exactly the same content.
 
-# With Props
+## With Props
+
 ```jsx
 <Card username="Chai Aur Code" />
 <Card username="Hitesh" />
 ```
-Now every card can display different data.
 
-# Receiving Props
+Now every Card can display different data.
+
+## Receiving Props
+
 ```jsx
 function Card(props) {
 
 }
 ```
+
 Props is an object.
+
 Example:
+
 ```js
 props = {
     username: "Chai Aur Code"
 }
 ```
+
 Access data like:
+
 ```jsx
 props.username
 ```
 
-# Props Destructuring
+## Props Destructuring
+
 Instead of writing:
+
 ```jsx
 props.username
 ```
+
 We can destructure.
+
 ```jsx
 function Card({ username }) {
 
 }
 ```
+
 Now simply use:
 
 ```jsx
 {username}
 ```
 
-# Using Props in JSX
+## Using Props in JSX
 
 ```jsx
 <h1>{username}</h1>
 ```
 
-# Passing Multiple Props
+## Passing Multiple Props
+
 ```jsx
 <Card
     username="Chai Aur Code"
     btnText="Visit Me"
 />
 ```
+
 Receive them.
+
 ```jsx
 function Card({ username, btnText }) {
 
 }
 ```
+
 Use them.
+
 ```jsx
 <button>{btnText}</button>
 ```
 
-# Passing Objects
+## Passing Objects
+
 ```jsx
 const myObj = {
     username: "Hitesh",
     age: 21
 }
+
 <Card myObj={myObj} />
 ```
-Receive
+
+Receive:
+
 ```jsx
 props.myObj
 ```
+
 or
 
 ```jsx
 myObj.username
 ```
 
-# Passing Arrays
+## Passing Arrays
+
 ```jsx
 const arr = [1,2,3,4]
+
 <Card arr={arr} />
 ```
+
 Props can pass arrays without any issue.
 
-# Default Props Value
+## Default Props Value
+
 Suppose Parent doesn't pass button text.
+
 ```jsx
 <Card username="Hitesh" />
 ```
+
 Provide a default value.
+
 ```jsx
 function Card({
     username,
     btnText = "Visit Me"
-}){
+}) {
 
 }
 ```
-Now if btnText is missing, React automatically uses:
-```
+
+Now if `btnText` is missing, React automatically uses:
+
+```text
 Visit Me
 ```
 
-# Why Use Props?
+## Why Use Props?
+
 Props help us:
-- Reuse components
-- Pass dynamic data
-- Reduce duplicate code
-- Keep components flexible
-- Make UI easier to maintain
 
-# Flow of Props
+* Reuse Components.
+* Pass dynamic data.
+* Reduce duplicate code.
+* Keep Components flexible.
+* Make UI easier to maintain.
 
-```
+## Flow of Props
+
+```text
 Parent Component
         │
         ▼
@@ -1111,20 +1172,23 @@ Card Component
 Display Data on Screen
 ```
 
-# Summary Of Lecture 
+## Summary Of Lecture
 
-- Props = Properties.
-- Props send data from Parent to Child.
-- Props are Read-Only.
-- Props are received as an object.
-- We can destructure Props.
-- Props can pass:
-  - String
-  - Number
-  - Boolean
-  - Object
-  - Array
-  - Function
-- Components become reusable with Props.
-- Default values can be provided during destructuring.
-****************************************************************************************************************************************************************
+* Props = Properties.
+* Props send data from Parent to Child.
+* Props are Read-Only.
+* Props are received as an object.
+* We can destructure Props.
+* Props can pass:
+  * String
+  * Number
+  * Boolean
+  * Object
+  * Array
+  * Function
+* Components become reusable with Props.
+* Default values can be provided during destructuring.
+
+*************************************************************************************************************************************************************
+
+ ******************************************
