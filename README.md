@@ -1191,4 +1191,348 @@ Display Data on Screen
 
 *************************************************************************************************************************************************************
 
+# 📘 React State Batching & Functional Updates (Lecture 8)
+
+## Lecture Goal
+
+Is lecture ka main purpose React ke ek important interview concept ko samajhna tha:
+**Ek hi function ke andar multiple `setState()` calls karne par expected output kyu nahi aata?**
+Saath hi React State Batching aur Functional Updates ka concept bhi explain kiya gaya.
+
+## Interview Scenario
+
+React interviews mein aksar ek simple Counter application banane ko kaha jata hai.
+
+Project mein:
+
+* Counter Value
+* Increment Button
+* Decrement Button
+
+Basic counter banane ke baad interviewer usually ek follow-up question poochta hai.
+
+Example:
+
+```jsx
+function addValue() {
+    setCounter(counter + 1)
+    setCounter(counter + 1)
+    setCounter(counter + 1)
+    setCounter(counter + 1)
+}
+```
+
+Question:
+**Ek baar button click karne par counter kitna increase hoga?**
+
+---
+
+## Expected vs Actual Output
+
+Agar initial value:
+
+```text
+15
+```
+
+To normally lagta hai output hoga:
+
+```text
+16
+17
+18
+19
+```
+
+Ya final value:
+
+```text
+19
+```
+
+Lekin actual output hota hai:
+
+```text
+16
+```
+
+Ek hi click par sirf **1** value increase hoti hai.
+
+---
+
+## Aisa Kyu Hota Hai?
+
+React state ko turant update nahi karta.
+
+`setCounter()` call hote hi variable ki value immediately change nahi hoti.
+
+React updates ko collect karta hai aur baad mein ek saath process karta hai.
+
+Isi process ko **State Batching** kehte hain.
+
+---
+
+## State Batching
+
+React multiple state updates ko ek batch mein combine karta hai.
+
+Flow:
+
+```text
+Multiple setState()
+        │
+        ▼
+React Collects Updates
+        │
+        ▼
+Single Batch
+        │
+        ▼
+UI Re-render
+```
+
+Is wajah se unnecessary re-rendering nahi hoti aur performance improve hoti hai.
+
+---
+
+## Problem with Normal Updates
+
+Agar hum likhen:
+
+```jsx
+setCounter(counter + 1)
+setCounter(counter + 1)
+setCounter(counter + 1)
+setCounter(counter + 1)
+```
+
+Har statement same old value use karti hai.
+
+Example:
+
+```text
+counter = 15
+```
+
+Har line calculate karti hai:
+
+```text
+15 + 1
+```
+
+React ke paas final update sirf:
+
+```text
+16
+```
+
+jata hai.
+
+Isliye output sirf:
+
+```text
+16
+```
+
+hota hai.
+
+---
+
+## Functional Update
+
+Agar previous updated state chahiye ho to setter function ke andar callback pass karte hain.
+
+Syntax:
+
+```jsx
+setCounter((prevCounter) => prevCounter + 1)
+```
+
+Yahan:
+
+```jsx
+prevCounter
+```
+
+React ki latest updated state hoti hai.
+
+---
+
+## Multiple Functional Updates
+
+```jsx
+setCounter((prevCounter) => prevCounter + 1)
+setCounter((prevCounter) => prevCounter + 1)
+setCounter((prevCounter) => prevCounter + 1)
+setCounter((prevCounter) => prevCounter + 1)
+```
+
+Ab har callback previous updated value use karega.
+
+Example:
+
+```text
+15
+↓
+16
+↓
+17
+↓
+18
+↓
+19
+```
+
+Final output:
+
+```text
+19
+```
+
+---
+
+## Why Functional Update Works
+
+Normal update:
+
+```jsx
+setCounter(counter + 1)
+```
+
+Current variable ki value use karta hai.
+
+Functional update:
+
+```jsx
+setCounter((prevCounter) => prevCounter + 1)
+```
+
+React se latest updated state leta hai.
+
+Isliye multiple updates correctly execute hoti hain.
+
+---
+
+## Callback Parameter
+
+Callback ke andar jo parameter hota hai uska naam kuch bhi rakh sakte hain.
+
+Example:
+
+```jsx
+setCounter((prevCounter) => prevCounter + 1)
+```
+
+Ya
+
+```jsx
+setCounter((count) => count + 1)
+```
+
+Ya
+
+```jsx
+setCounter((value) => value + 1)
+```
+
+Naam important nahi hota.
+
+Important ye hai ke us parameter mein previous state milti hai.
+
+---
+
+## State Update Flow
+
+### Normal Update
+
+```text
+counter = 15
+
+setCounter(counter + 1)
+setCounter(counter + 1)
+setCounter(counter + 1)
+
+        │
+        ▼
+
+Sabhi calls same value (15) use karti hain.
+
+Final Result:
+
+16
+```
+
+---
+
+### Functional Update
+
+```text
+counter = 15
+
+prevCounter = 15
+        │
+        ▼
+16
+        │
+        ▼
+17
+        │
+        ▼
+18
+        │
+        ▼
+19
+```
+
+Har callback latest updated value receive karta hai.
+
+---
+
+## Kab Functional Update Use Karni Chahiye?
+
+Functional update tab use karni chahiye jab new state previous state par depend karti ho.
+
+Examples:
+
+* Counter Increment
+* Counter Decrement
+* Like Counter
+* Quantity Increase
+* Toggle Operations
+* Multiple State Updates
+
+---
+
+## Interview Points
+
+Interview mein commonly ye questions pooche ja sakte hain:
+
+* React State Batching kya hoti hai?
+* Multiple `setState()` calls ek hi update kyu karti hain?
+* Functional Update kya hoti hai?
+* `prevCounter` kya hota hai?
+* Callback use karne ka kya benefit hai?
+* Functional Update kab use karni chahiye?
+
+---
+
+## Summary Of Lecture
+
+* React multiple state updates ko batch karta hai.
+* `setCounter()` immediately state update nahi karta.
+* Multiple normal updates same old value use karti hain.
+* Isliye ek hi click par counter sirf ek baar update hota hai.
+* Functional Update latest previous state provide karti hai.
+* Callback syntax:
+
+  ```jsx
+  setCounter((prevCounter) => prevCounter + 1)
+  ```
+* Multiple Functional Updates correctly execute hoti hain.
+* Jab new state previous state par depend kare to Functional Update use karni chahiye.
+* Ye React ka important interview concept hai.
+
+
+
+
  ******************************************
