@@ -859,4 +859,680 @@ Interview mein commonly ye questions pooche ja sakte hain:
 - React unnecessary DOM updates avoid karke fast rendering provide karta hai.
   **********************************************************************************************************************************************************
 
+  # 📘 React Props & Tailwind CSS (Lecture 7)
 
+## What I Learned
+
+In this lecture, I learned:
+* How to configure Tailwind CSS in a React (Vite) project.
+* What React Props are.
+* How Props make components reusable.
+* How to pass data from a Parent Component to a Child Component.
+* How to receive and use Props inside a Component.
+* How to pass different data types through Props.
+* How to set default values for Props.
+* How to create reusable Card Components.
+
+## Tailwind CSS Setup
+
+### Step 1: Create a React Project
+
+```bash
+npm create vite@latest
+```
+
+Select:
+* React
+* JavaScript
+
+### Step 2: Move into Project
+
+```bash
+cd project-name
+```
+
+### Step 3: Install Dependencies
+
+```bash
+npm install
+```
+
+### Step 4: Run Project
+
+```bash
+npm run dev
+```
+
+### Step 5: Install Tailwind CSS
+
+```bash
+npm install -D tailwindcss postcss autoprefixer
+```
+
+### Step 6: Generate Configuration Files
+
+```bash
+npx tailwindcss init -p
+```
+
+This creates:
+
+* tailwind.config.js
+* postcss.config.js
+
+### Step 7: Configure Tailwind
+
+Inside **tailwind.config.js**
+
+```js
+content: [
+  "./index.html",
+  "./src/**/*.{js,ts,jsx,tsx}",
+],
+```
+
+### Step 8: Add Tailwind Directives
+
+Inside **index.css**
+
+```css
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+```
+
+### Step 9: Test Tailwind
+
+```jsx
+<h1 className="bg-green-400 p-4 rounded-xl">
+    Tailwind Test
+</h1>
+```
+
+If the background becomes green, Tailwind is working correctly.
+
+## Useful Tailwind Classes
+
+### Background Color
+
+```jsx
+bg-green-400
+```
+
+### Padding
+
+```jsx
+p-4
+```
+
+### Rounded Corners
+
+```jsx
+rounded-xl
+```
+
+### Text Color
+
+```jsx
+text-white
+```
+
+### Margin Bottom
+
+```jsx
+mb-4
+```
+
+## React Props
+
+### What are Props?
+
+Props stand for **Properties**.
+
+Props are used to send data from a Parent Component to a Child Component.
+
+They make Components reusable.
+
+## Without Props
+
+```jsx
+<Card />
+<Card />
+```
+
+Both cards show exactly the same content.
+
+## With Props
+
+```jsx
+<Card username="Chai Aur Code" />
+<Card username="Hitesh" />
+```
+
+Now every Card can display different data.
+
+## Receiving Props
+
+```jsx
+function Card(props) {
+
+}
+```
+
+Props is an object.
+
+Example:
+
+```js
+props = {
+    username: "Chai Aur Code"
+}
+```
+
+Access data like:
+
+```jsx
+props.username
+```
+
+## Props Destructuring
+
+Instead of writing:
+
+```jsx
+props.username
+```
+
+We can destructure.
+
+```jsx
+function Card({ username }) {
+
+}
+```
+
+Now simply use:
+
+```jsx
+{username}
+```
+
+## Using Props in JSX
+
+```jsx
+<h1>{username}</h1>
+```
+
+## Passing Multiple Props
+
+```jsx
+<Card
+    username="Chai Aur Code"
+    btnText="Visit Me"
+/>
+```
+
+Receive them.
+
+```jsx
+function Card({ username, btnText }) {
+
+}
+```
+
+Use them.
+
+```jsx
+<button>{btnText}</button>
+```
+
+## Passing Objects
+
+```jsx
+const myObj = {
+    username: "Hitesh",
+    age: 21
+}
+
+<Card myObj={myObj} />
+```
+
+Receive:
+
+```jsx
+props.myObj
+```
+
+or
+
+```jsx
+myObj.username
+```
+
+## Passing Arrays
+
+```jsx
+const arr = [1,2,3,4]
+
+<Card arr={arr} />
+```
+
+Props can pass arrays without any issue.
+
+## Default Props Value
+
+Suppose Parent doesn't pass button text.
+
+```jsx
+<Card username="Hitesh" />
+```
+
+Provide a default value.
+
+```jsx
+function Card({
+    username,
+    btnText = "Visit Me"
+}) {
+
+}
+```
+
+Now if `btnText` is missing, React automatically uses:
+
+```text
+Visit Me
+```
+
+## Why Use Props?
+
+Props help us:
+
+* Reuse Components.
+* Pass dynamic data.
+* Reduce duplicate code.
+* Keep Components flexible.
+* Make UI easier to maintain.
+
+## Flow of Props
+
+```text
+Parent Component
+        │
+        ▼
+<Card username="Hitesh" />
+        │
+        ▼
+Props Object
+        │
+        ▼
+Card Component
+        │
+        ▼
+Display Data on Screen
+```
+
+## Summary Of Lecture
+
+* Props = Properties.
+* Props send data from Parent to Child.
+* Props are Read-Only.
+* Props are received as an object.
+* We can destructure Props.
+* Props can pass:
+  * String
+  * Number
+  * Boolean
+  * Object
+  * Array
+  * Function
+* Components become reusable with Props.
+* Default values can be provided during destructuring.
+
+*************************************************************************************************************************************************************
+
+# 📘 React State Batching & Functional Updates (Lecture 8)
+
+## Lecture Goal
+
+Is lecture ka main purpose React ke ek important interview concept ko samajhna tha:
+**Ek hi function ke andar multiple `setState()` calls karne par expected output kyu nahi aata?**
+Saath hi React State Batching aur Functional Updates ka concept bhi explain kiya gaya.
+
+## Interview Scenario
+
+React interviews mein aksar ek simple Counter application banane ko kaha jata hai.
+
+Project mein:
+
+* Counter Value
+* Increment Button
+* Decrement Button
+
+Basic counter banane ke baad interviewer usually ek follow-up question poochta hai.
+
+Example:
+
+```jsx
+function addValue() {
+    setCounter(counter + 1)
+    setCounter(counter + 1)
+    setCounter(counter + 1)
+    setCounter(counter + 1)
+}
+```
+
+Question:
+**Ek baar button click karne par counter kitna increase hoga?**
+
+---
+
+## Expected vs Actual Output
+
+Agar initial value:
+
+```text
+15
+```
+
+To normally lagta hai output hoga:
+
+```text
+16
+17
+18
+19
+```
+
+Ya final value:
+
+```text
+19
+```
+
+Lekin actual output hota hai:
+
+```text
+16
+```
+
+Ek hi click par sirf **1** value increase hoti hai.
+
+---
+
+## Aisa Kyu Hota Hai?
+
+React state ko turant update nahi karta.
+
+`setCounter()` call hote hi variable ki value immediately change nahi hoti.
+
+React updates ko collect karta hai aur baad mein ek saath process karta hai.
+
+Isi process ko **State Batching** kehte hain.
+
+---
+
+## State Batching
+
+React multiple state updates ko ek batch mein combine karta hai.
+
+Flow:
+
+```text
+Multiple setState()
+        │
+        ▼
+React Collects Updates
+        │
+        ▼
+Single Batch
+        │
+        ▼
+UI Re-render
+```
+
+Is wajah se unnecessary re-rendering nahi hoti aur performance improve hoti hai.
+
+---
+
+## Problem with Normal Updates
+
+Agar hum likhen:
+
+```jsx
+setCounter(counter + 1)
+setCounter(counter + 1)
+setCounter(counter + 1)
+setCounter(counter + 1)
+```
+
+Har statement same old value use karti hai.
+
+Example:
+
+```text
+counter = 15
+```
+
+Har line calculate karti hai:
+
+```text
+15 + 1
+```
+
+React ke paas final update sirf:
+
+```text
+16
+```
+
+jata hai.
+
+Isliye output sirf:
+
+```text
+16
+```
+
+hota hai.
+
+---
+
+## Functional Update
+
+Agar previous updated state chahiye ho to setter function ke andar callback pass karte hain.
+
+Syntax:
+
+```jsx
+setCounter((prevCounter) => prevCounter + 1)
+```
+
+Yahan:
+
+```jsx
+prevCounter
+```
+
+React ki latest updated state hoti hai.
+
+---
+
+## Multiple Functional Updates
+
+```jsx
+setCounter((prevCounter) => prevCounter + 1)
+setCounter((prevCounter) => prevCounter + 1)
+setCounter((prevCounter) => prevCounter + 1)
+setCounter((prevCounter) => prevCounter + 1)
+```
+
+Ab har callback previous updated value use karega.
+
+Example:
+
+```text
+15
+↓
+16
+↓
+17
+↓
+18
+↓
+19
+```
+
+Final output:
+
+```text
+19
+```
+
+---
+
+## Why Functional Update Works
+
+Normal update:
+
+```jsx
+setCounter(counter + 1)
+```
+
+Current variable ki value use karta hai.
+
+Functional update:
+
+```jsx
+setCounter((prevCounter) => prevCounter + 1)
+```
+
+React se latest updated state leta hai.
+
+Isliye multiple updates correctly execute hoti hain.
+
+---
+
+## Callback Parameter
+
+Callback ke andar jo parameter hota hai uska naam kuch bhi rakh sakte hain.
+
+Example:
+
+```jsx
+setCounter((prevCounter) => prevCounter + 1)
+```
+
+Ya
+
+```jsx
+setCounter((count) => count + 1)
+```
+
+Ya
+
+```jsx
+setCounter((value) => value + 1)
+```
+
+Naam important nahi hota.
+
+Important ye hai ke us parameter mein previous state milti hai.
+
+---
+
+## State Update Flow
+
+### Normal Update
+
+```text
+counter = 15
+
+setCounter(counter + 1)
+setCounter(counter + 1)
+setCounter(counter + 1)
+
+        │
+        ▼
+
+Sabhi calls same value (15) use karti hain.
+
+Final Result:
+
+16
+```
+
+---
+
+### Functional Update
+
+```text
+counter = 15
+
+prevCounter = 15
+        │
+        ▼
+16
+        │
+        ▼
+17
+        │
+        ▼
+18
+        │
+        ▼
+19
+```
+
+Har callback latest updated value receive karta hai.
+
+---
+
+## Kab Functional Update Use Karni Chahiye?
+
+Functional update tab use karni chahiye jab new state previous state par depend karti ho.
+
+Examples:
+
+* Counter Increment
+* Counter Decrement
+* Like Counter
+* Quantity Increase
+* Toggle Operations
+* Multiple State Updates
+
+---
+
+## Interview Points
+
+Interview mein commonly ye questions pooche ja sakte hain:
+
+* React State Batching kya hoti hai?
+* Multiple `setState()` calls ek hi update kyu karti hain?
+* Functional Update kya hoti hai?
+* `prevCounter` kya hota hai?
+* Callback use karne ka kya benefit hai?
+* Functional Update kab use karni chahiye?
+
+---
+
+## Summary Of Lecture
+
+* React multiple state updates ko batch karta hai.
+* `setCounter()` immediately state update nahi karta.
+* Multiple normal updates same old value use karti hain.
+* Isliye ek hi click par counter sirf ek baar update hota hai.
+* Functional Update latest previous state provide karti hai.
+* Callback syntax:
+
+  ```jsx
+  setCounter((prevCounter) => prevCounter + 1)
+  ```
+* Multiple Functional Updates correctly execute hoti hain.
+* Jab new state previous state par depend kare to Functional Update use karni chahiye.
+* Ye React ka important interview concept hai.
+
+
+
+
+ ******************************************
