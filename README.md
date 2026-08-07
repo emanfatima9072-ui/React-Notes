@@ -1714,5 +1714,163 @@ Built a fully functional Password Generator that:
 - Includes numbers and special characters
 - Auto-generates on option changes
 - Copies password to clipboard
-- Uses React Hooks efficiently
-************************************************************************************************************************************************************
+  ***********************************************************************************************************************************************************
+
+# 📘 Lecture 11 - Currency Converter Project
+
+## Lecture Goal
+Is lecture ka goal React ke concepts ko use karke ek **Currency Converter** application banana tha. Is project mein humne API se live exchange rates fetch kiye, custom Hook banaya aur reusable components ka use kiya.
+
+## Custom Hook
+React mein jab same logic multiple jagah reuse karna ho to **Custom Hook** banaya jata hai.
+Is project mein humne:
+
+```js
+useCurrencyInfo()
+```
+banaya jo selected currency ke exchange rates API se fetch karta hai.
+
+### Benefits
+- Code reusable ho jata hai.
+- Logic component se alag ho jata hai.
+- Components clean aur readable rehte hain.
+
+## API Fetching
+Exchange rates API se fetch kiye gaye.
+Flow:
+
+```text
+Selected Currency
+        ↓
+fetch()
+        ↓
+API Response
+        ↓
+Store in State
+        ↓
+UI Update
+```
+`useEffect()` ki help se currency change hote hi latest rates automatically fetch hote hain.
+
+
+## State Management
+Project mein multiple states use hui.
+```jsx
+const [amount, setAmount] = useState(0)
+const [from, setFrom] = useState("usd")
+const [to, setTo] = useState("inr")
+const [convertedAmount, setConvertedAmount] = useState(0)
+```
+
+### States
+- `amount` → Entered amount
+- `from` → Source currency
+- `to` → Target currency
+- `convertedAmount` → Final converted value
+
+## Reusable Components
+Ek reusable component banaya:
+```jsx
+<InputBox />
+```
+Is component ko do baar use kiya.
+- From Currency
+- To Currency
+Props ki help se different data pass kiya gaya.
+
+## Props
+Parent component se child component ko data pass kiya.
+Example:
+```jsx
+<InputBox
+    amount={amount}
+    currencyOptions={options}
+/>
+```
+Isse component reusable ban gaya.
+
+## Currency Conversion
+Convert button click hone par conversion perform hoti hai.
+Formula:
+```js
+amount * currencyInfo[to]
+```
+Result state mein store hota hai aur UI automatically update ho jati hai.
+
+## Swap Function
+Swap button se dono selected currencies exchange ho jati hain.
+Flow:
+```text
+USD → INR
+
+↓
+
+Swap
+
+↓
+
+INR → USD
+```
+Amount aur converted amount bhi swap kiye gaye.
+
+## Controlled Components
+Inputs React state ke through control kiye gaye.
+```jsx
+value={amount}
+onChange={setAmount}
+Is wajah se UI aur state hamesha synchronized rehte hain.
+```
+
+## Dynamic Dropdown
+Available currencies dynamically show karne ke liye:
+```js
+Object.keys(currencyInfo)
+```
+use kiya gaya.
+API se jitni currencies aati hain woh automatically dropdown mein render ho jati hain.
+
+## Event Handling
+Form submit hone par page reload na ho isliye:
+```jsx
+event.preventDefault()
+```
+use kiya.
+Convert button click par conversion function call hota hai.
+
+## React Concepts Covered
+- Custom Hooks
+- useState
+- useEffect
+- Props
+- Controlled Components
+- API Fetching
+- Event Handling
+- Component Reusability
+
+## Project Flow
+```text
+User Input
+      ↓
+Select From Currency
+      ↓
+Select To Currency
+      ↓
+Click Convert
+      ↓
+Calculate Result
+      ↓
+Display Converted Amount
+```
+
+## Summary Of Lecture
+
+- Custom Hook (`useCurrencyInfo`) bana kar API logic reuse ki.
+- `fetch()` aur `useEffect()` se live exchange rates liye.
+- `useState` se application ki state manage ki.
+- Reusable `InputBox` component banaya.
+- Props ki help se data pass kiya.
+- Currency conversion formula implement kiya.
+- Swap functionality add ki.
+- Controlled inputs aur dynamic dropdown use kiye.
+- API data ke according UI automatically update hui.
+**********************************************************************************************************************************************************
