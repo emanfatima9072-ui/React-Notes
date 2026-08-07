@@ -1634,4 +1634,85 @@ Is lecture me humne React ka pehla practical UI project banaya jisme:
 - Inline styles aur Tailwind CSS practice ki.
 - React state aur UI update ka real example dekha.
 
- ******************************************
+ *******************************************************************************************************************************************************
+
+ # Lecture 10 - Password Generator Project (React Hooks)
+
+##  What I Learned
+### State Management
+- Managed password settings using `useState`.
+- Stored:
+  - Password length
+  - Allow numbers
+  - Allow special characters
+  - Generated password
+
+### Controlled Inputs
+
+- Used `value` and `onChange` for the range slider.
+- Used checkboxes with previous state to toggle values.
+```jsx
+setNumberAllowed((prev) => !prev)
+setCharAllowed((prev) => !prev)
+```
+
+### Password Generation
+- Generated random passwords based on:
+  - Selected length
+  - Numbers option
+  - Special characters option
+- Used `Math.random()` and `charAt()` to pick random characters.
+
+### useCallback
+- Memoized the password generator function.
+- Prevented unnecessary function recreation.
+- Used dependency array correctly.
+
+### useEffect
+- Automatically generated a new password whenever:
+  - Length changed
+  - Number option changed
+  - Character option changed
+
+### useRef
+- Stored a reference to the password input.
+- Accessed the input directly without causing re-renders.
+
+### Copy to Clipboard
+- Copied the generated password using:
+
+```js
+window.navigator.clipboard.writeText(password)
+```
+
+- Selected the input text before copying:
+
+```js
+passwordRef.current?.select()
+passwordRef.current?.setSelectionRange(0, 100)
+```
+
+## Debugging Learned
+
+- Calling state updates directly during render causes an infinite render loop.
+- Fixed password concatenation (`+=`) instead of overwriting (`=`).
+- Avoided unnecessary dependencies in `useCallback`.
+- Understood the difference between `useEffect` dependencies and `useCallback` dependencies.
+
+## React Hooks Covered
+
+- `useState`
+- `useCallback`
+- `useEffect`
+- `useRef`
+
+##  Project Outcome
+
+Built a fully functional Password Generator that:
+- Generates random passwords
+- Supports custom length
+- Includes numbers and special characters
+- Auto-generates on option changes
+- Copies password to clipboard
+- Uses React Hooks efficiently
+************************************************************************************************************************************************************
