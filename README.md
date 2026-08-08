@@ -2117,8 +2117,7 @@ App
 ```
 Context API ka main purpose **shared data ko efficiently manage karna aur unnecessary prop drilling avoid karna** hai.
 
-
-# Context API Basic Setup
+## Context API ka Basix Setup
 
 ### 1. Context Create Karna
 Context ke liye separate folder/file bana sakte hain:
@@ -2259,10 +2258,9 @@ use kar sakta hai.
 ```js
 useContext(UserContext)
 ```
-Context se `value` ko access karta hai.
----
+context sa value access krta ha
 
-# Projects In This Lecture
+## Projects In This Lecture
 Is lecture mein **2 mini projects** ta:
 
 ### Project 1 — Mini Context App
@@ -2294,7 +2292,7 @@ Theme Context
 ```
 Button theme change karega aur Context ki wajah se required components ko updated theme mil jayegi.
 
-# Summary Of Lecture
+## Summary Of Lecture
 * **Prop Drilling** = data ko unnecessary intermediate components ke through pass karna.
 * **Context API** = shared data ko directly required components tak provide karna.
 * `createContext()` Context create karta hai.
@@ -2307,7 +2305,7 @@ Button theme change karega aur Context ki wajah se required components ko update
 * Context ka main purpose **shared/global data ko efficiently manage karna** hai.
 * Context API React ke andar use hoti hai.
 
-# Context API Flow
+## Context API Flow
 ```text
 createContext()
       ↓
@@ -2323,6 +2321,5 @@ useContext()
       ↓
 Component ko Direct Data Access
 ```
-****************************************************************************************************************************************************************
 ****************************************************************************************************************************************************************
 
