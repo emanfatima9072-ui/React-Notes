@@ -2392,7 +2392,184 @@ todos.map((todo) => (
 * `.map()` se multiple Todo components render kiye.
 * Unique `id` ko React `key` ke taur par use kiya.
 * Context API + Local Storage ko use karke **persistent Todo application** banayi.
+*****************************************************************************************************************************************************************
 
+#  📘 Lecture 15: Redux & Redux Toolkit
+
+### Redux Kya Hai?
+Redux ek **independent state management library** hai jo application ke shared/global state ko manage karne ke liye use hoti hai.
+Redux React ke saath hi limited nahi hai. Isay different JavaScript applications/frameworks ke saath use kiya ja sakta hai.
+React ke saath Redux use karne ke liye **React-Redux** bridge/library use hoti hai.
+
+### Redux Ki Zarurat Kyu Pari?
+Bari application mein data ko deeply nested components tak `props` ke through pass karna difficult ho sakta hai.
+Context API ne is problem ko solve kiya, lekin Redux ne state ke saath **structured data flow** provide kiya.
+Redux ka main idea:
+* Ek central store hota hai.
+* State ko directly modify nahi karte.
+* Changes reducers ke through hote hain.
+* Data ka flow predictable rehta hai.
+
+# Redux Ki History
+Redux se pehle **Flux architecture** ne centralized state aur structured data flow ka concept introduce kiya.
+Redux Flux se inspired tha aur isne concepts ko aur structured banaya:
+* Single Source of Truth
+* Predictable State Updates
+* Reducers
+* Structured Data Flow
+Baad mein Redux mein setup aur configuration kaafi lengthy hone ki wajah se **Redux Toolkit (RTK)** introduce hua.
+
+#  Redux Toolkit
+Redux Toolkit Redux ka **modern, recommended approach** hai.
+Redux Toolkit ka purpose Redux ko:
+* Simple banana
+* Setup kam karna
+* Boilerplate reduce karna
+* Built-in features provide karna
+hai.
+Redux Toolkit mein commonly used Redux features already available hote hain.
+
+# Redux Ke Important Concepts
+
+### 1. Store
+Store application ki **central state** hoti hai.
+```
+Store
+ ├── Auth State
+ ├── Todo State
+ └── Product State
+```
+Store ke andar different features ki states ho sakti hain.
+
+### 2. Slice
+Redux Toolkit mein state + reducers + actions ko ek feature ke andar manage karne ke liye **Slice** use hota hai.
+Example:
+
+```
+features/
+   todo/
+      todoSlice.js
+```
+Har feature ka apna slice ho sakta hai.
+
+### 3. Reducer
+Reducer define karta hai ke state ko **kis tarah update karna hai**.
+Redux Toolkit mein reducer ke andar directly state ko modify karne jaisa syntax likh sakte hain, aur RTK internally required state update handle karta hai.
+
+### 4. Action
+Action batata hai ke **state mein kya change karna hai**.
+Example:
+```
+addTodo
+removeTodo
+```
+Action ke saath required data `payload` mein bheja ja sakta hai.
+
+### 5. Payload
+`payload` woh data hota hai jo action ke saath reducer ko diya jata hai.
+Example:
+```
+payload: {
+    text: "Learn Redux"
+}
+```
+Reducer payload se required value access kar sakta hai.
+
+### 6. `useSelector`
+Store se **state read/select** karne ke liye use hota hai.
+```
+useSelector(...)
+```
+Matlab:
+**Store → Required State**
+
+### 7. `useDispatch`
+Store ko **action bhejne/dispatch karne** ke liye use hota hai.
+```
+useDispatch(...)
+```
+Matlab:
+
+**Component → Action → Reducer → State Update**
+
+# Project: Redux Toolkit Todo App
+Lecture mein Redux Toolkit practice ke liye ek **Todo project** banaya gaya.
+
+### Project Setup
+React project create kiya gaya aur Redux Toolkit + React Redux libraries install ki gayi.
+Project ka basic structure:
+```
+src/
+├── app/
+│   └── store.js
+│
+├── features/
+│   └── todo/
+│       └── todoSlice.js
+│
+├── App.jsx
+└── main.jsx
+```
+
+### `store.js`
+Redux store create karne ke liye `configureStore` use kiya gaya.
+Store mein different feature reducers register kiye ja sakte hain.
+
+### `todoSlice.js`
+Todo ke liye slice create kiya gaya.
+Initial state mein todos ka array rakha gaya:
+```
+todos: [
+    {
+        id: 1,
+        text: "Hello World"
+    }
+]
+```
+Todo slice mein actions/reducers banaye gaye:
+* `addTodo`
+* `removeTodo`
+
+### `addTodo`
+Naya Todo add karta hai.
+New Todo ke liye unique ID generate karne ke liye **`nanoid()`** use kiya gaya.
+Todo ka text action ke `payload` se liya jata hai.
+
+### `removeTodo`
+Todo ko remove karta hai.
+Remove karne ke liye Todo ki **ID** payload ke through bheji jati hai.
+Reducer us ID ke basis par Todo remove karta hai.
+
+# Redux Toolkit Data Flow
+Project mein overall flow:
+```
+Component
+    ↓
+dispatch(action)
+    ↓
+Reducer
+    ↓
+Store State Update
+    ↓
+useSelector
+    ↓
+Component gets updated state
+```
+
+# Summary of Lecture
+
+* Redux ek independent state management library hai.
+* React ke saath Redux use karne ke liye React-Redux use hota hai.
+* Redux Toolkit Redux ka modern approach hai.
+* **Store** central state contain karta hai.
+* **Slice** feature ki state aur reducers ko organize karta hai.
+* **Reducer** state update ka logic define karta hai.
+* **Action** batata hai kya change karna hai.
+* **Payload** action ke saath data bhejta hai.
+* `useSelector` store se data read karta hai.
+* `useDispatch` action dispatch karta hai.
+* Redux Toolkit setup aur boilerplate ko simplify karta hai.
+* Todo project mein `addTodo` aur `removeTodo` actions/reducers implement kiye gaye.
 
 
 
