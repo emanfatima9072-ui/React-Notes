@@ -2321,5 +2321,82 @@ useContext()
       ↓
 Component ko Direct Data Access
 ```
+************************************************************************************************************************************************************
+
+# 📘 Lecture 14: React Context API + Local Storage Todo App
+
+### Context API
+**Context API** React mein data aur functions ko multiple components tak directly provide karne ke liye use hoti hai, bina baar baar props pass kiye.
+* `createContext()` → Context create karta hai.
+* `Provider` → Data/functions components ko provide karta hai.
+* `useContext()` → Kisi bhi child component mein Context ki values access karta hai.
+
+### `useEffect`
+`useEffect` ka use side effects perform karne ke liye hota hai.
+Is project mein `useEffect` ko **Local Storage se Todos load** karne aur **Todos change hone par Local Storage update** karne ke liye use kiya.
+
+### Local Storage
+Browser mein data permanently store karne ke liye `localStorage` use hota hai.
+```js
+localStorage.setItem(key, value)
+localStorage.getItem(key)
+```
+Local Storage sirf **string** store karta hai, isliye objects/arrays ke liye:
+```js
+JSON.stringify()
+JSON.parse()
+```
+use kiye jate hain.
+
+##  Project Mein Kya Implement Kiya?
+
+### Todo Context
+Ek `TodoContext` banaya jisme Todo ki sari functionality centralize ki:
+* Add Todo
+* Update Todo
+* Delete Todo
+* Toggle Todo Complete
+* Todos ko Local Storage mein save karna
+Components mein `useContext()` ke through ye functionality directly access ki.
+
+### Todo Form
+`TodoForm` component mein:
+* `useState` se input value manage ki.
+* `onChange` se input ko state ke saath connect kiya.
+* `onSubmit` par new Todo add kiya.
+* Submit ke baad input ko empty kiya.
+
+### Todo Item
+`TodoItem` component mein:
+* Todo ko edit karna.
+* Todo ko complete/incomplete toggle karna.
+* Todo delete karna.
+* `completed` value ke according UI change karna.
+* Edit mode mein input ko update karna.
+
+### Rendering Todos
+Todos ko display karne ke liye `.map()` use kiya.
+Har Todo ko uski **unique `id` ko `key`** ke taur par diya, taake React har item ko properly identify kar sake.
+```js
+todos.map((todo) => (
+    <TodoItem key={todo.id} todo={todo} />
+))
+```
+
+# Summary Of Lecture
+* Context API se **prop drilling avoid** kar sakte hain.
+* `useContext()` se Context ka data/functions access karte hain.
+* `useEffect()` side effects ke liye use hota hai.
+* `localStorage` sirf strings store karta hai.
+* `JSON.stringify()` object/array ko string mein convert karta hai.
+* `JSON.parse()` string ko wapas object/array mein convert karta hai.
+* `useState` component ki changing values manage karta hai.
+* `.map()` se multiple Todo components render kiye.
+* Unique `id` ko React `key` ke taur par use kiya.
+* Context API + Local Storage ko use karke **persistent Todo application** banayi.
+
+
+
+
 ****************************************************************************************************************************************************************
 
