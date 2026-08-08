@@ -2348,8 +2348,7 @@ JSON.parse()
 ```
 use kiye jate hain.
 
-##  Project Mein Kya Implement Kiya?
-
+## Implementation in project :
 ### Todo Context
 Ek `TodoContext` banaya jisme Todo ki sari functionality centralize ki:
 * Add Todo
@@ -2382,8 +2381,7 @@ todos.map((todo) => (
     <TodoItem key={todo.id} todo={todo} />
 ))
 ```
-
-# Summary Of Lecture
+## Summary Of Lecture
 * Context API se **prop drilling avoid** kar sakte hain.
 * `useContext()` se Context ka data/functions access karte hain.
 * `useEffect()` side effects ke liye use hota hai.
