@@ -2081,11 +2081,246 @@ During this lecture, the project evolved from a simple multi-page app into a mor
 - The project became more structured, scalable, and reusable.
 ****************************************************************************************************************************************************************
 
+# 📘 Lecture 13 — React Context API
 
+##  Goal
+* React Context API ka purpose samajhna.
+* **Prop Drilling** ki problem samajhna.
+* Context ka basic setup banana.
+* `createContext()`, `Provider`, `useContext()` ko samajhna.
+* Context ke through components ke beech data share karna.
 
+## Why Context API?
+Normally React mein data parent se child ko **props** ke through pass hota hai.
+Agar data ko deeply nested component tak bhejna ho:
+```text
+App
+ ↓ props
+Dashboard
+ ↓ props
+Top
+ ↓ props
+Card
+```
+Beech ke components ko data ki zaroorat nahi hoti, phir bhi unko props receive karke aage pass karne padte hain.
+Is problem ko **Prop Drilling** kehte hain.
 
+### Context API
+Context ek shared/global data provide karta hai jise nested components directly access kar sakte hain.
+```text
+App
+ │
+ └── Context Provider
+       │
+       ├── Dashboard
+       ├── Top
+       └── Card
+             ↓
+        Direct Context Access
+```
 
+# Context API Basic Setup
 
-  ***********************************************************************************************************************************************************
+## 1. Context Create Karna
+Context ke liye separate folder/file bana sakte hain:
+```text
+src/
+ └── context/
+      └── UserContext.js
+```
+React se `createContext` use karte hain:
+```js
+import React from "react";
+
+const UserContext = React.createContext();
+
+export default UserContext;
+```
+### `createContext()`
+`createContext()` ek Context object create karta hai.
+```js
+const UserContext = React.createContext();
+```
+
+# 2. Provider Banana
+Context ko components tak provide karne ke liye **Provider** use hota hai.
+```js
+const UserContextProvider = ({ children }) => {
+
+    return (
+        <UserContext.Provider value={...}>
+            {children}
+        </UserContext.Provider>
+    );
+};
+
+export default UserContextProvider;
+```
+
+### Provider ka kaam
+Provider ke andar jo components honge unko Context ki value ka access mil sakta hai.
+```text
+UserContextProvider
+        │
+        ├── Login
+        ├── Profile
+        └── Dashboard
+```
+
+# 3. `children`
+`children` ek special prop hai.
+Agar:
+```jsx
+<UserContextProvider>
+    <Login />
+    <Profile />
+</UserContextProvider>
+```
+To `children` ke andar:
+```text
+Login
+Profile
+```
+aa jayenge.
+Isliye Provider mein:
+```jsx
+{children}
+```
+likhne se Provider ke andar wale components render ho jate hain.
+
+# 4. Context ki Value Dena
+Provider ke andar `value` property se data provide karte hain.
+```jsx
+<UserContext.Provider value={{ user, setUser }}>
+    {children}
+</UserContext.Provider>
+```
+Yahan:
+```text
+user
+setUser
+```
+dono Context ke through available hain.
+
+# 5. State ko Context mein Rakhna
+Context ke andar normally state rakhi ja sakti hai:
+```js
+const [user, setUser] = useState(null);
+```
+Phir:
+```jsx
+<UserContext.Provider value={{ user, setUser }}>
+    {children}
+</UserContext.Provider>
+```
+Ab components ko:
+```text
+user
+setUser
+```
+ka access mil sakta hai.
+
+# 6. Provider ko App ke Around Wrap Karna
+Provider ko top level par wrap karte hain:
+```jsx
+<UserContextProvider>
+    <App />
+</UserContextProvider>
+```
+Ab `App` ke andar jitne components hain, wo Context access kar sakte hain.
+```text
+UserContextProvider
+        │
+       App
+        │
+   ┌────┴────┐
+ Login     Profile
+```
+
+# 7. Context Data Access Karna
+Component ke andar:
+```js
+import { useContext } from "react";
+import UserContext from "../context/UserContext";
+```
+Phir:
+```js
+const { user, setUser } = useContext(UserContext);
+```
+Ab component directly:
+```text
+user
+setUser
+```
+use kar sakta hai.
+
+### Important
+```js
+useContext(UserContext)
+```
+Context se `value` ko access karta hai.
+
+# Projects in This Lecture
+Is lecture mein **2 mini projects** ta:
+
+## Project 1 — Mini Context App
+Simple application jisme Context API use karke components ke beech data share karna hai.
+
+### Purpose
+* Context create karna
+* Provider banana
+* State ko Context mein rakhna
+* `useContext()` se data access karna
+* Prop Drilling avoid karna
+
+## Project 2 — Theme Switcher
+Light/Dark theme switcher banana.
+
+### Purpose
+Context ke through theme ko globally manage karna.
+Example:
+```text
+Theme Context
+      │
+      ├── Theme
+      └── setTheme()
+             │
+       ┌─────┴─────┐
+       │           │
+     Button      UI
+```
+Button theme change karega aur Context ki wajah se required components ko updated theme mil jayegi.
+
+# Summary Of Lecture
+
+* **Prop Drilling** = data ko unnecessary intermediate components ke through pass karna.
+* **Context API** = shared data ko directly required components tak provide karna.
+* `createContext()` → Context create karta hai.
+* `Provider` → Context ki value provide karta hai.
+* `value` → jo data share karna hai.
+* `children` → Provider ke andar wale components.
+* `useContext()` → Context ki value access karta hai.
+* Context mein state bhi rakhi ja sakti hai.
+* Context API React ka built-in feature hai.
+* Context ka main purpose **shared/global data ko efficiently manage karna** hai.
+* Context API sirf React ke andar use hoti hai.
+
+## Flow
+```text
+createContext()
+      ↓
+Context Create
+      ↓
+Provider
+      ↓
+value = { data, functions }
+      ↓
+App ko Provider se wrap
+      ↓
+useContext()
+      ↓
+Component ko Direct Data Access
+```
+ ************************************************************************************************************************************************************
 
  
