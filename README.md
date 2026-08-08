@@ -2079,19 +2079,16 @@ During this lecture, the project evolved from a simple multi-page app into a mor
 - `useLoaderData()` directly accesses Loader data.
 - GitHub API was used to practice Loader-based data fetching.
 - The project became more structured, scalable, and reusable.
-****************************************************************************************************************************************************************
+**************************************************************************************************************************************************************
 
-# 📘 Lecture 13 — React Context API
+# 📘 Lecture 13: React Context API
 
-##  Goal
-* React Context API ka purpose samajhna.
-* **Prop Drilling** ki problem samajhna.
-* Context ka basic setup banana.
-* `createContext()`, `Provider`, `useContext()` ko samajhna.
-* Context ke through components ke beech data share karna.
+### React Context API Kya Hai?
+React Context API ek built-in feature hai jo components ke beech **shared/global data** provide karne ke liye use hoti hai.
+Context ki help se data ko har component ke through props mein pass karne ki zaroorat nahi hoti.
 
-## Why Context API?
-Normally React mein data parent se child ko **props** ke through pass hota hai.
+### Prop Drilling
+Normally React mein data **parent se child** ko props ke through pass hota hai.
 Agar data ko deeply nested component tak bhejna ho:
 ```text
 App
@@ -2118,10 +2115,12 @@ App
              ↓
         Direct Context Access
 ```
+Context API ka main purpose **shared data ko efficiently manage karna aur unnecessary prop drilling avoid karna** hai.
+
 
 # Context API Basic Setup
 
-## 1. Context Create Karna
+### 1. Context Create Karna
 Context ke liye separate folder/file bana sakte hain:
 ```text
 src/
@@ -2136,13 +2135,14 @@ const UserContext = React.createContext();
 
 export default UserContext;
 ```
+
 ### `createContext()`
-`createContext()` ek Context object create karta hai.
+`createContext()` ek **Context object** create karta hai.
 ```js
 const UserContext = React.createContext();
 ```
 
-# 2. Provider Banana
+### 2. Provider Banana
 Context ko components tak provide karne ke liye **Provider** use hota hai.
 ```js
 const UserContextProvider = ({ children }) => {
@@ -2157,7 +2157,7 @@ const UserContextProvider = ({ children }) => {
 export default UserContextProvider;
 ```
 
-### Provider ka kaam
+### Provider Ka Kaam
 Provider ke andar jo components honge unko Context ki value ka access mil sakta hai.
 ```text
 UserContextProvider
@@ -2167,8 +2167,8 @@ UserContextProvider
         └── Dashboard
 ```
 
-# 3. `children`
-`children` ek special prop hai.
+### 3. `children`
+`children` ek **special prop** hai.
 Agar:
 ```jsx
 <UserContextProvider>
@@ -2188,7 +2188,7 @@ Isliye Provider mein:
 ```
 likhne se Provider ke andar wale components render ho jate hain.
 
-# 4. Context ki Value Dena
+### 4. Context Ki Value Dena
 Provider ke andar `value` property se data provide karte hain.
 ```jsx
 <UserContext.Provider value={{ user, setUser }}>
@@ -2202,7 +2202,7 @@ setUser
 ```
 dono Context ke through available hain.
 
-# 5. State ko Context mein Rakhna
+### 5. State Ko Context Mein Rakhna
 Context ke andar normally state rakhi ja sakti hai:
 ```js
 const [user, setUser] = useState(null);
@@ -2219,8 +2219,9 @@ user
 setUser
 ```
 ka access mil sakta hai.
+---
 
-# 6. Provider ko App ke Around Wrap Karna
+### 6. Provider Ko App Ke Around Wrap Karna
 Provider ko top level par wrap karte hain:
 ```jsx
 <UserContextProvider>
@@ -2237,7 +2238,7 @@ UserContextProvider
  Login     Profile
 ```
 
-# 7. Context Data Access Karna
+### 7. Context Data Access Karna
 Component ke andar:
 ```js
 import { useContext } from "react";
@@ -2254,30 +2255,32 @@ setUser
 ```
 use kar sakta hai.
 
-### Important
+### `useContext()`
 ```js
 useContext(UserContext)
 ```
 Context se `value` ko access karta hai.
+---
 
-# Projects in This Lecture
+# Projects In This Lecture
 Is lecture mein **2 mini projects** ta:
 
-## Project 1 — Mini Context App
+### Project 1 — Mini Context App
 Simple application jisme Context API use karke components ke beech data share karna hai.
 
 ### Purpose
-* Context create karna
-* Provider banana
-* State ko Context mein rakhna
-* `useContext()` se data access karna
-* Prop Drilling avoid karna
+* Context create karna.
+* Provider banana.
+* State ko Context mein rakhna.
+* `useContext()` se data access karna.
+* Prop Drilling avoid karna.
 
-## Project 2 — Theme Switcher
+### Project 2 — Theme Switcher
 Light/Dark theme switcher banana.
 
 ### Purpose
 Context ke through theme ko globally manage karna.
+
 Example:
 ```text
 Theme Context
@@ -2287,25 +2290,24 @@ Theme Context
              │
        ┌─────┴─────┐
        │           │
-     Button      UI
+     Button       UI
 ```
 Button theme change karega aur Context ki wajah se required components ko updated theme mil jayegi.
 
 # Summary Of Lecture
-
 * **Prop Drilling** = data ko unnecessary intermediate components ke through pass karna.
 * **Context API** = shared data ko directly required components tak provide karna.
-* `createContext()` → Context create karta hai.
-* `Provider` → Context ki value provide karta hai.
-* `value` → jo data share karna hai.
-* `children` → Provider ke andar wale components.
-* `useContext()` → Context ki value access karta hai.
+* `createContext()` Context create karta hai.
+* `Provider` Context ki value provide karta hai.
+* `value` mein wo data hota hai jo share karna hai.
+* `children` Provider ke andar wale components hote hain.
+* `useContext()` Context ki value access karta hai.
 * Context mein state bhi rakhi ja sakti hai.
 * Context API React ka built-in feature hai.
 * Context ka main purpose **shared/global data ko efficiently manage karna** hai.
-* Context API sirf React ke andar use hoti hai.
+* Context API React ke andar use hoti hai.
 
-## Flow
+# Context API Flow
 ```text
 createContext()
       ↓
@@ -2321,6 +2323,6 @@ useContext()
       ↓
 Component ko Direct Data Access
 ```
- ************************************************************************************************************************************************************
+****************************************************************************************************************************************************************
+****************************************************************************************************************************************************************
 
- 
